@@ -94,7 +94,8 @@ export const TwitterProvider = ({ children }) => {
 					-4,
 				)}`,
 				isProfileImageNft: false,
-				profileImage: 'https://pbs.twimg.com/media/EV4q0ztWkAAyECO.jpg',
+				profileImage:
+					'https://img.freepik.com/premium-vector/smile-icon-smile-logo-vector-design-happy-emoticon-business-funny-design-vector-emoji-happiness_6415-3544.jpg',
 				coverImage: `https://www.scaler.com/topics/images/hello-world-program-in-python.webp`,
 				walletAddress: userWalletAddress,
 			};
