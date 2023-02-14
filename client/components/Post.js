@@ -16,12 +16,12 @@ const style = {
 	name: `font-bold mr-1`,
 	verified: `text-[0.8rem]`,
 	handleAndTimeAgo: `text-[#8899a6] ml-1`,
-	tweet: `my-2 break-all cursor-text`,
+	tweet: `my-2 break-words cursor-text`,
 	image: `rounded-3xl`,
 	footer: `flex justify-between mr-28 mt-4 text-[#8899a6]`,
 	footerIcon: `rounded-full text-lg p-2`,
 };
-//1
+
 const Post = ({
 	displayName,
 	userName,
