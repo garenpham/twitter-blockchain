@@ -21,7 +21,7 @@ const style = {
 	footer: `flex justify-between mr-28 mt-4 text-[#8899a6]`,
 	footerIcon: `rounded-full text-lg p-2`,
 };
-
+//1
 const Post = ({
 	displayName,
 	userName,
