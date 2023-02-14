@@ -1,15 +1,15 @@
-import { useContext } from 'react'
-import { BsStars } from 'react-icons/bs'
-import TweetBox from './TweetBox'
-import Post from '../Post'
-import { TwitterContext } from '../../context/TwitterContext'
+import { useContext, useEffect, useState } from 'react';
+import { BsStars } from 'react-icons/bs';
+import TweetBox from './TweetBox';
+import Post from '../Post';
+import { TwitterContext } from '../../context/TwitterContext';
 
 const style = {
 	// wrapper: `flex-[2] border-r border-l border-[#38444d] l-50-px ml-[18vw]`,
 	wrapper: `flex-[2] border-r border-l border-[#38444d] overflow-y-scroll`,
 	header: `sticky top-0 bg-[#15202b] z-10 p-4 flex justify-between items-center`,
 	headerTitle: `text-xl font-bold`,
-}
+};
 
 // const tweets = [
 // 	{
@@ -96,7 +96,8 @@ const style = {
 // ]
 
 function Feed() {
-	const { tweets } = useContext(TwitterContext)
+	const { tweets } = useContext(TwitterContext);
+
 	return (
 		<div className={style.wrapper}>
 			<div className={style.header}>
@@ -111,7 +112,7 @@ function Feed() {
 
 			{tweets.map((tweet, index) => (
 				<Post
-					key={index}
+					key={tweet._key}
 					displayName={
 						tweet.author.name === 'Unnamed'
 							? `${tweet.author.walletAddress.slice(
@@ -131,7 +132,7 @@ function Feed() {
 				/>
 			))}
 		</div>
-	)
+	);
 }
 
-export default Feed
+export default Feed;

@@ -1,5 +1,5 @@
-import { GiEarthAmerica } from 'react-icons/gi'
-import { Dispatch, SetStateAction } from 'react'
+import { GiEarthAmerica } from 'react-icons/gi';
+import { Dispatch, SetStateAction, useState } from 'react';
 
 const style = {
 	wrapper: `h-[20rem] w-[35rem] text-white bg-[#15202b] rounded-3xl p-10 flex flex-col`,
@@ -14,7 +14,7 @@ const style = {
 	visibilityText: `ml-2`,
 	mintButton: `bg-white text-black px-3 py-1 rounded-full hover:bg-[#8899a6] cursor-pointer`,
 	inactiveMintButton: `text-black px-3 py-1 rounded-full bg-[#8899a6]`,
-}
+};
 
 const InitialState = ({
 	profileImage,
@@ -25,7 +25,8 @@ const InitialState = ({
 	setDescription,
 	mint,
 }) => {
-	console.log(profileImage)
+	console.log(profileImage);
+	const [selected, setSelected] = useState(false);
 	return (
 		<div className={style.wrapper}>
 			<div className={style.inputFieldsContainter}>
@@ -39,9 +40,12 @@ const InitialState = ({
 							accept=".jpg, .jpeg, .png"
 							className={style.fileInput}
 							placeholder="Image URL"
-							onChange={(e) => setProfileImage(e.target.files[0])}
+							onChange={(e) => {
+								setProfileImage(e.target.files[0]);
+								setSelected(true);
+							}}
 						/>
-						Select File
+						{!selected ? 'Select File' : 'Change File'}
 					</label>
 				</div>
 				<div className={style.inputContainer}>
@@ -76,14 +80,14 @@ const InitialState = ({
 					}
 					onClick={() => {
 						if (name && description && profileImage) {
-							mint()
+							mint();
 						}
 					}}>
 					Mint
 				</div>
 			</div>
 		</div>
-	)
-}
+	);
+};
 
-export default InitialState
+export default InitialState;

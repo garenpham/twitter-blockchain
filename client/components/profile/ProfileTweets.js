@@ -1,15 +1,16 @@
-import Post from '../Post'
-import { useContext } from 'react'
-import { TwitterContext } from './../../context/TwitterContext'
+import Post from '../Post';
+import { useContext, useEffect } from 'react';
+import { TwitterContext } from './../../context/TwitterContext';
 
 const style = {
 	wrapper: `no-scrollbar`,
 	header: `sticky top-0 bg-[#15202b] z-10 p-4 flex justify-between items-center`,
 	headerTitle: `text-xl font-bold`,
-}
+};
 
 const ProfileTweets = () => {
-	const { currentUser, currentAccount } = useContext(TwitterContext)
+	const { currentUser, currentAccount } = useContext(TwitterContext);
+
 	return (
 		<div className={style.wrapper}>
 			{currentUser.tweets?.map((tweet, index) => (
@@ -30,7 +31,7 @@ const ProfileTweets = () => {
 				/>
 			))}
 		</div>
-	)
-}
+	);
+};
 
-export default ProfileTweets
+export default ProfileTweets;

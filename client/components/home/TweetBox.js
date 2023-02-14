@@ -1,10 +1,10 @@
-import { React, useState, useContext } from 'react'
-import { BsCardImage, BsEmojiSmile } from 'react-icons/bs'
-import { RiFileGifLine, RiBarChartHorizontalFill } from 'react-icons/ri'
-import { IoMdCalendar } from 'react-icons/io'
-import { MdOutlineLocationOn } from 'react-icons/md'
-import { client } from './../../lib/client'
-import { TwitterContext } from '../../context/TwitterContext'
+import { React, useState, useContext } from 'react';
+import { BsCardImage, BsEmojiSmile } from 'react-icons/bs';
+import { RiFileGifLine, RiBarChartHorizontalFill } from 'react-icons/ri';
+import { IoMdCalendar } from 'react-icons/io';
+import { MdOutlineLocationOn } from 'react-icons/md';
+import { client } from './../../lib/client';
+import { TwitterContext } from '../../context/TwitterContext';
 
 const style = {
 	wrapper: `px-4 flex flex-row border-b border-[#38444d] pb-4`,
@@ -18,17 +18,24 @@ const style = {
 	submitGeneral: `px-6 py-2 rounded-3xl font-bold`,
 	inactiveSubmit: `bg-[#196195] text-[#95999e]`,
 	activeSubmit: `bg-[#1d9bf0] text-white`,
-}
+};
 
 const TweetBox = () => {
-	const [tweetMessage, setTweetMessage] = useState('')
-	const { currentAccount, currentUser, tweets } = useContext(TwitterContext)
+	const [tweetMessage, setTweetMessage] = useState('');
+	const {
+		currentAccount,
+		currentUser,
+		fetchTweets,
+		getCurrentUserDetails,
+		progress,
+	} = useContext(TwitterContext);
 
 	const postTweet = async (event) => {
-		event.preventDefault()
-		if (!tweetMessage) return
+		event.preventDefault();
+		progress.start();
+		if (!tweetMessage) return;
 
-		const tweetId = `${currentAccount}_${Date.now()}`
+		const tweetId = `${currentAccount}_${Date.now()}`;
 
 		const tweetDoc = {
 			_type: 'tweets',
@@ -40,9 +47,9 @@ const TweetBox = () => {
 				_type: 'reference',
 				_ref: currentAccount,
 			},
-		}
+		};
 
-		await client.createIfNotExists(tweetDoc)
+		await client.createIfNotExists(tweetDoc);
 
 		await client
 			.patch(currentAccount)
@@ -55,9 +62,18 @@ const TweetBox = () => {
 				},
 			])
 			.commit()
+			.then(() => {
+				fetchTweets();
+				getCurrentUserDetails();
+				progress.finish();
+			})
+			.catch((err) => {
+				console.error('Post failed: ', err.message);
+				progress.finish();
+			});
 
-		setTweetMessage('')
-	}
+		setTweetMessage('');
+	};
 
 	return (
 		<div className={style.wrapper}>
@@ -102,7 +118,7 @@ const TweetBox = () => {
 				</form>
 			</div>
 		</div>
-	)
-}
+	);
+};
 
-export default TweetBox
+export default TweetBox;
